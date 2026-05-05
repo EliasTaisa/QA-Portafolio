@@ -1,0 +1,487 @@
+{
+	"info": {
+		"_postman_id": "e167a240-3758-4568-b48e-432e10aecefd",
+		"name": "reqres.in - Práctica QA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28474522"
+	},
+	"item": [
+		{
+			"name": "Escenarios Positivos",
+			"item": [
+				{
+					"name": "Listar Usuarios Página 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code es 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"    });\r",
+									"pm.test(\"Response tiene datos de usuarios\", function(){\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.data).to.be.an(\"array\");\r",
+									"    });\r",
+									"pm.test(\"La página actual es 1\", function(){\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.page).to.eql(1);\r",
+									"    });\r",
+									"pm.test(\"Tiempo de respuesta menor a 20ms\", function(){\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(20);\r",
+									"    });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/users?page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Usuarios Página 2",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "free_user_3DI0olclIt9jOh86BKn6CgvAoJv",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users?page=2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code es 201\", function(){\r",
+									"    pm.response.to.have.status(201);\r",
+									"    });\r",
+									"pm.test(\"Response tiene ID\", function(){\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.id).to.not.be.undefined;\r",
+									"    });\r",
+									"pm.test(\"Response tiene createdAt\", function(){\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.createdAt).to.not.be.undefined;\r",
+									"    });\r",
+									"pm.test(\"El nombre es correcto\", function(){\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.name).to.eql(\"Pedrito Clavo un Clavita\");\r",
+									"    });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "free_user_3DI0olclIt9jOh86BKn6CgvAoJv",
+								"type": "text"
+							},
+							{
+								"key": "Contet-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pedrito Clavo un Clavito\",\r\n    \"job\": \"QA Tester\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users?x-api-key=free_user_3DI0olclIt9jOh86BKn6CgvAoJv",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "x-api-key",
+									"value": "free_user_3DI0olclIt9jOh86BKn6CgvAoJv"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Usuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pedrito Clavo un Clavito\",\r\n    \"job\": \"QA Tester\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/users/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar job usuario",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"job\": \"QA Automation\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Escenarios Negativos",
+			"item": [
+				{
+					"name": "Crear usuario sin campos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code es 201\", function(){\r",
+									"    pm.response.to.have.status(201);\r",
+									"    });\r",
+									"pm.test(\"Response tiene ID\", function(){\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.id).to.not.be.undefined;\r",
+									"    });\r",
+									"pm.test(\"Response tiene createdAt\", function(){\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.createdAt).to.not.be.undefined;\r",
+									"    });\r",
+									"pm.test(\"El nombre es correcto\", function(){\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.name).to.eql(\"Pedrito Clavo un Clavito\");\r",
+									"    });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "free_user_3DI0olclIt9jOh86BKn6CgvAoJv",
+								"type": "text"
+							},
+							{
+								"key": "Contet-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users?x-api-key=free_user_3DI0olclIt9jOh86BKn6CgvAoJv",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "x-api-key",
+									"value": "free_user_3DI0olclIt9jOh86BKn6CgvAoJv"
+								}
+							]
+						},
+						"description": "Escenario Negativo: Validar que al API rechace la creación de usuario sin campos obligatorios\n\nResultado Esperado: 400 Bad Request\n\nResultado actual: 201 Created\n\nEstatus: DEFECTO"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear usuario nombre vacío",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code es 201\", function(){\r",
+									"    pm.response.to.have.status(201);\r",
+									"    });\r",
+									"pm.test(\"Response tiene ID\", function(){\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.id).to.not.be.undefined;\r",
+									"    });\r",
+									"pm.test(\"Response tiene createdAt\", function(){\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.createdAt).to.not.be.undefined;\r",
+									"    });\r",
+									"pm.test(\"El nombre es correcto\", function(){\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.name).to.eql(\"Pedrito Clavo un Clavito\");\r",
+									"    });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "free_user_3DI0olclIt9jOh86BKn6CgvAoJv",
+								"type": "text"
+							},
+							{
+								"key": "Contet-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"\",\r\n\"job\": \"QA Tester\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}api/users?x-api-key=free_user_3DI0olclIt9jOh86BKn6CgvAoJv",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "x-api-key",
+									"value": "free_user_3DI0olclIt9jOh86BKn6CgvAoJv"
+								}
+							]
+						},
+						"description": "Escenario Negativo: Validar que al API rechace la creación de usuario sin campos obligatorios\n\nResultado Esperado: 400 Bad Request\n\nResultado actual: 201 Created\n\nEstatus: DEFECTO"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear usuario name sin valor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code es 201\", function(){\r",
+									"    pm.response.to.have.status(201);\r",
+									"    });\r",
+									"pm.test(\"Response tiene ID\", function(){\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.id).to.not.be.undefined;\r",
+									"    });\r",
+									"pm.test(\"Response tiene createdAt\", function(){\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.createdAt).to.not.be.undefined;\r",
+									"    });\r",
+									"pm.test(\"El nombre es correcto\", function(){\r",
+									"    var json = pm.response.json();\r",
+									"    pm.expect(json.name).to.eql(\"Pedrito Clavo un Clavito\");\r",
+									"    });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "free_user_3DI0olclIt9jOh86BKn6CgvAoJv",
+								"type": "text"
+							},
+							{
+								"key": "Contet-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": ,\r\n\"job\": \"QA Tester\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users?x-api-key=free_user_3DI0olclIt9jOh86BKn6CgvAoJv",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "x-api-key",
+									"value": "free_user_3DI0olclIt9jOh86BKn6CgvAoJv"
+								}
+							]
+						},
+						"description": "Escenario Negativo: Validar que al API rechace la creación de usuario sin campos obligatorios\n\nResultado Esperado: 400 Bad Request\n\nResultado actual: 400 Bad Request\n\nEstatus: Pass"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{api_key}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "x-api-key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
