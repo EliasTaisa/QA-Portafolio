@@ -34,7 +34,7 @@ Colección de pruebas sobre API REST pública que incluye:
 | DEF-002 | API permite crear usuario con nombre vacío        | Media     | Abierto |
 
 ## Contacto
-www.linkedin.com/in/eliasmoro
+www.linkedin.com/in/elias-moncayo-9000b8106/
 
 
 
