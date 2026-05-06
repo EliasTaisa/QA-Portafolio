@@ -28,6 +28,7 @@ Colección de pruebas sobre API REST pública que incluye:
 
 ## Defectos encontrados
 | ID      |           Descripción                             | Severidad | Status  |
+
 | DEF-001 | API permite crear usuario sin campos obligatorios | Media     | Abierto |
 | DEF-002 | API permite crear usuario con nombre vacío        | Media     | Abierto |
 
